@@ -1,0 +1,223 @@
+{
+	"tabBar": {
+		"custom": true,
+		"color": "#7a7a7a",
+		"borderStyle": "black",
+		"selectedColor": "#5CB8E7",
+		"list": [{
+			"pagePath": "pages/customer/customer",
+			"text": "首页",
+			"iconPath": "static/image/tabber/home.png",
+			"selectedIconPath": "static/image/tabber/home1.png"
+		}, {
+			"pagePath": "pages/support/index",
+			"text": "客服",
+			"iconPath": "static/image/tabber/kefu.png",
+			"selectedIconPath": "static/image/tabber/kefu1.png"
+		}, {
+			"pagePath": "pages/user/user",
+			"text": "我的",
+			"iconPath": "static/image/tabber/my.png",
+			"selectedIconPath": "static/image/tabber/my1.png"
+		}]
+	},
+	"pages": [{
+			"path": "pages/customer/customer",
+			"style": {
+				//"navigationStyle": "custom",
+				"backgroundColor": "#FFFFFF",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		}, {
+			"path": "pages/driver/driver",
+			"style": {
+				//"navigationStyle": "custom",
+				"backgroundColor": "#FFFFFF",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		},
+		{
+			"path": "pages/user/login/login",
+			"style": {
+				"navigationBarTitleText": "微信登陆",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/support/index",
+			"style": {
+				"navigationBarTitleText": "客服 - 钢蛋",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/setting/index",
+			"style": {
+				"navigationBarTitleText": "设置",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/order/invoice/invoice",
+			"style": {
+				"navigationBarTitleText": "发票抬头",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/rule",
+			"style": {
+				"navigationBarTitleText": "协议",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/help/help-center",
+			"style": {
+				"navigationBarTitleText": "帮助中心",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/profile/personal-data",
+			"style": {
+				"navigationBarTitleText": "个人资料",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/about",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"navigationStyle": "default",
+				"backgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/user/profile/edit-name",
+			"style": {
+				"navigationBarTitleText": "修改昵称",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/address/address",
+			"style": {
+				"navigationBarTitleText": "我的地址",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/address/edit-address",
+			"style": {
+				"navigationBarTitleText": "编辑地址",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/address/add-address",
+			"style": {
+				"navigationBarTitleText": "添加地址",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/service/carInfo",
+			"style": {
+				"navigationBarTitleText": "车辆信息",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/profile/region",
+			"style": {
+				"navigationBarTitleText": "地区",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/sponsored",
+			"style": {
+				"navigationBarTitleText": "我的红包",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/real_name/index",
+			"style": {
+				"navigationBarTitleText": "实人认证",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/user/real_name/form",
+			"style": {
+				"navigationBarTitleText": "实人认证",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/order/appraise/appraise",
+			"style": {
+				"navigationBarTitleText": "交易评价",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/order/appraise/add_appraise",
+			"style": {
+				"navigationBarTitleText": "追加评价",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/order/order",
+			"style": {
+				"navigationBarTitleText": "订单列表",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/order/detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path": "pages/customer/service/index",
+			"style": {
+				"navigationBarTitleText": "叫车",
+				"navigationStyle": "default"
+			}
+		}
+	],
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
+		}
+	},
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F1F1F1",
+		"navigationBarTextStyle": "black"
+	}
+}
