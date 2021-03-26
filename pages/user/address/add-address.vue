@@ -48,10 +48,18 @@ export default {
 				detail: '',
 				latitude: '',
 				longitude: ''
-			}
+			},
+			pageType: 0
 		};
 	},
-	onLoad() {},
+	onLoad(option) {
+		if (option.pageType) {
+			this.pageType = option.pageType;
+			uni.setNavigationBarTitle({
+				title: '选择地址'
+			});
+		}
+	},
 	onReady() {
 		_tool.setBarColor(true);
 		uni.pageScrollTo({
@@ -71,6 +79,7 @@ export default {
 			console.log(this.address);
 		},
 		getLocation() {
+			console.log(1);
 			uni.chooseLocation({
 				success: res => {
 					this.address.region = res.address;

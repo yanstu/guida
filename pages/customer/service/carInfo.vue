@@ -3,12 +3,17 @@
 		<view class="info-card cu-card shadow-warp">
 			<view class="cu-form-group">
 				品牌
-				<input class="text-right" placeholder="可选择垫付比例" name="input" />
+				<input class="text-right" placeholder="请选择车辆的品牌" name="input" />
 				<text class="cuIcon-right text-gray"></text>
 			</view>
 			<view class="cu-form-group">
-				车牌号
-				<input class="text-right" placeholder="车辆车牌号" name="input" />
+				型号
+				<input class="text-right" placeholder="请选择车辆的型号" name="input" />
+				<text class="cuIcon-right text-gray"></text>
+			</view>
+			<view class="cu-form-group">
+				车架号
+				<input class="text-right" placeholder="请输入车架号后6位" name="input" />
 				<text class="cuIcon-right text-gray"></text>
 			</view>
 			<view class="cu-form-group">
@@ -16,7 +21,7 @@
 				<view class="action">
 					<view class="padding-sm flex flex-wrap">
 						<view class="padding-xs" v-for="(item, index) in colorTypes" :key="index" v-if="item.name != 'gray'">
-							<view @click="chooseColor(item, index)" class="cu-tag" :class="'bg-' + item.name + ' ' + (colorIndex == index && 'color')">{{ item.title }}</view>
+							<view @click="chooseColor(item, index)" class="cu-tag round" :class="'bg-' + item.name + ' ' + (colorIndex == index && 'color')">{{ item.title }}</view>
 						</view>
 					</view>
 				</view>
@@ -32,7 +37,7 @@
 			<view class="cu-form-group" @click="choose">
 				<view class="">
 					<text class="cuIcon-camerafill text-blue margin-right-xs"></text>
-					粘贴识别
+					拍照识别
 				</view>
 				<text class="cuIcon-right text-gray"></text>
 			</view>

@@ -30,10 +30,10 @@
 						<view class="iconfont iconarrow-right"></view>
 					</view>
 				</view>
-				<view class="qrcode_section" @tap="memberCode">
+				<!-- <view class="qrcode_section" @tap="memberCode">
 					<image src="/static/images/index/qrcode.png"></image>
 					<text>会员码</text>
-				</view>
+				</view> -->
 			</view>
 			<!-- <view class="navigators">
 				<view class="left">

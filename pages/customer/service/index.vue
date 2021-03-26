@@ -45,14 +45,25 @@
 			<view class="reading">
 				<view style="justify-content: left;" class="cu-form-group">
 					<view @click="readAgreement" :class="'margin-right ' + (readState ? 'cuIcon-roundcheckfill text-yellow' : 'cuIcon-round')"></view>
-					我已阅读并同意
-					<navigator class="text-yellow" url="../../user/rule">《用车规则》</navigator>
+					阅读并同意
+					<navigator class="text-blue" url="../../user/rule">《用车规则》</navigator>
 				</view>
 			</view>
 		</view>
 
-		<view class="btn">
-			<view style="text-align: left;margin-left: 20rpx;">
+		<view class="foot">
+			<view class="margin-left foot-left flex align-center">
+				预估
+				<text class="text-yellow text-bold margin-right-xs">￥--</text>
+				<text class="margin-right-xs" style="color: rgba(81,81,81,.3);">|</text>
+				明细
+				<text class="cuIcon-fold text-bold margin-left-xs"></text>
+			</view>
+			<view class="foot-right margin-right">
+				<button class="cu-btn bg-red shadow-blur round">立即用车</button>
+				<button class="cu-btn bg-orange shadow-blur round margin-top-sm">预约用车</button>
+			</view>
+			<!-- <view style="text-align: left;margin-left: 20rpx;">
 				￥
 				<text class="text-yellow">{{ price }}</text>
 			</view>
@@ -62,7 +73,7 @@
 					<text class="iconfont icon-yuyue"></text>
 					<text>预约</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -332,55 +343,21 @@ page {
 		color: $text-a;
 	}
 
-	.btn {
+	.foot {
 		position: absolute;
-		width: 96%;
-		margin: 2%;
+		width: 100%;
 		bottom: 0;
-
-		> view:nth-of-type(1) {
-			text-align: center;
-			padding: 20upx 0;
-			color: $text-color;
-			font-size: $font-size-sm;
-
-			> text {
-				font-size: 40upx;
-			}
+		background-color: #ffffff;
+		height: 180rpx;
+		display: flex;
+		.foot-left {
+			flex: 7;
 		}
-
-		> view:nth-of-type(2) {
+		.foot-right {
+			flex: 3;
 			display: flex;
-			align-items: center;
-			height: 100upx;
-			color: white;
-			font-size: $font-size-lg;
-
-			> view:nth-of-type(1) {
-				width: 500upx;
-				background: $bg-color;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			> view:nth-of-type(2) {
-				width: calc(100% - 500upx);
-				background: $bg-color-orange;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 100%;
-
-				> text:nth-of-type(1) {
-					padding-top: 5upx;
-				}
-
-				> text:nth-of-type(2) {
-					padding-left: 10upx;
-				}
-			}
+			flex-direction: column;
+			justify-content: center;
 		}
 	}
 }

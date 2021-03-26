@@ -204,7 +204,7 @@
 		{
 			"path": "pages/customer/service/index",
 			"style": {
-				"navigationBarTitleText": "叫车",
+				"navigationBarTitleText": "发 填单",
 				"navigationStyle": "default"
 			}
 		}

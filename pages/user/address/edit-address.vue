@@ -19,7 +19,19 @@
 		</view>
 		<view class="cu-form-group">
 			所在地区
-			<input style="width: 77%;" class="text-right" type="text" v-model="address.region" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
+			<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.region" placeholder="请选择所在地区" disabled="true" @click="getLocation" /> -->
+			<uni-data-picker
+				placeholder="请选择地址"
+				popup-title="请选择城市"
+				collection="opendb-city-china"
+				field="code as value, name as text"
+				orderby="value asc"
+				:step-searh="true"
+				:self-field="code"
+				parent-field="parent_code"
+				@change="onchange"
+				@nodeclick="onnodeclick"
+			></uni-data-picker>
 			<text class="cuIcon-right text-gray"></text>
 		</view>
 		<view class="cu-form-group align-start">
@@ -39,11 +51,11 @@
 </template>
 
 <script>
-import barTitle from '@/components/zaiui-common/basics/bar-title';
+import uniDataPicker from '@/components/uni-data-picker/components/uni-data-picker/uni-data-picker.vue';
 import _tool from '@/utils/other.js';
 export default {
 	components: {
-		barTitle
+		uniDataPicker
 	},
 	data() {
 		return {

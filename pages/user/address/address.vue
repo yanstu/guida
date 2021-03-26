@@ -4,35 +4,22 @@
 		<!-- <bar-title bgColor="bg-white" isBack><block slot="content">我的地址</block></bar-title> -->
 
 		<!--列表-->
-		<view class="bg-white zaiui-address-card-view">
-			<view class="flex text-black text-lg" @tap="editAddressTap">
-				<view class="flex-sub text-left">仔仔</view>
-				<view class="flex-sub text-right">138****8000</view>
+		<view @click="sendMsg(address)" v-for="(address, index) in addresss" class="bg-white zaiui-address-card-view">
+			<view class="flex text-black text-lg">
+				<view class="flex-sub text-left">{{ address.name }}</view>
+				<view class="flex-sub text-right">{{ address.phone }}</view>
 			</view>
-			<view class="margin-tb-sm text-gray" @tap="editAddressTap">重庆是 渝北区 网络购买专用虚拟地址</view>
+			<view class="text-gray margin-top margin-bottom">{{ address.address + address.detail }}</view>
 			<view class="zaiui-line-view" />
 			<view class="zaiui-right-view">
-				<text class="cuIcon-write" @tap="editAddressTap">编辑</text>
-				<text class="cuIcon-delete">删除</text>
-			</view>
-		</view>
-
-		<view class="bg-white zaiui-address-card-view">
-			<view class="flex text-black text-lg" @tap="editAddressTap">
-				<view class="flex-sub text-left">仔仔1</view>
-				<view class="flex-sub text-right">138****8000</view>
-			</view>
-			<view class="margin-tb-sm text-gray" @tap="editAddressTap">重庆是 渝北区 网络购买专用虚拟地址1</view>
-			<view class="zaiui-line-view" />
-			<view class="zaiui-right-view">
-				<text class="cuIcon-write" @tap="editAddressTap">编辑</text>
-				<text class="cuIcon-delete">删除</text>
+				<text class="cuIcon-write text-blue" @tap.stop="editAddressTap">编辑</text>
+				<text class="cuIcon-delete text-red">删除</text>
 			</view>
 		</view>
 
 		<!--按钮-->
 		<view class="wecanui-footer-fixed foot-pb">
-			<view class="flex flex-direction"><button class="cu-btn bg-red" @tap="AddAddressTap">添加新地址</button></view>
+			<view class="flex flex-direction"><button class="cu-btn bg-blue shadow-blur round" @tap="AddAddressTap">添加新地址</button></view>
 		</view>
 	</view>
 </template>
@@ -45,9 +32,23 @@ export default {
 		barTitle
 	},
 	data() {
-		return {};
+		return {
+			type: 0,
+			addresss: [
+				{
+					name: '孙笑川',
+					phone: '1858318325',
+					address: '贵州省贵阳市观山湖区下坝山路6',
+					detail: 'G27大数据创客空间'
+				}
+			]
+		};
 	},
-	onLoad() {},
+	onLoad(option) {
+		if (option.type) {
+			this.type = option.type;
+		}
+	},
 	onReady() {
 		_tool.setBarColor(true);
 		uni.pageScrollTo({
@@ -56,7 +57,23 @@ export default {
 		});
 	},
 	methods: {
+		sendMsg(item) {
+			let pages = getCurrentPages(); //获取所有页面栈实例列表
+			let nowPage = pages[pages.length - 1]; //当前页页面实例
+			let prevPage = pages[pages.length - 2]; //上一页页面实例
+			/*if (this.type != 1) {
+				prevPage.$vm.addressData.communityName = item.name; //修改上一页item里面参数值
+				prevPage.$vm.addressData.communityId = item.communityId; //修改上一页item里面参数值
+			} else {
+				prevPage.$vm.item = item; //修改上一页item里面参数值
+			}*/
+			console.log(prevPage.$vm);
+			uni.navigateBack({
+				delta: 1
+			});
+		},
 		editAddressTap() {
+			console.log(1);
 			uni.navigateTo({
 				url: 'edit-address'
 			});
