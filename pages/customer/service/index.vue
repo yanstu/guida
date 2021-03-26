@@ -10,19 +10,26 @@
 		</view>
 		<view class="address shadow-warp">
 			<view>
-				<view>发</view>
-				<input
-					style="border-bottom: 1px solid rgba(81,81,81,.1);height: 85rpx;"
-					type="text"
-					v-model="send"
-					placeholder="请选择收车人信息"
-					disabled="true"
-					@click="getLocation(1)"
-				/>
+				<view style="background: #222836;">发</view>
+				<view class="address-fa">
+					<text v-if="address_fa" class="address-detail">
+						<text class="text-bold">{{ address_fa.name }} {{ address_fa.phone }}</text>
+						<text style="font-size: 22rpx;">{{ address_fa.area + address_fa.detail }}</text>
+					</text>
+					<input v-else style="height: 85rpx;width: 90%;" type="text" placeholder="请填写发车人信息" disabled="true" @click="fillAddress(2, 'address_fa')" />
+					<text @click="autoFill(2, 'address_fa')" class="cuIcon-addressbook" style="font-size: 40rpx;"></text>
+				</view>
 			</view>
 			<view>
-				<view>收</view>
-				<input type="text" style="height: 65rpx;" v-model="take" placeholder="请选择发车人信息" disabled="true" @click="getLocation(2)" />
+				<view style="background: #ff6600;">收</view>
+				<view class="address-fa" style="border: 0;">
+					<text v-if="address_shou" class="address-detail">
+						<text class="text-bold">{{ address_shou.name }} {{ address_shou.phone }}</text>
+						<text style="font-size: 22rpx;">{{ address_shou.area + address_shou.detail }}</text>
+					</text>
+					<input v-else style="height: 85rpx;width: 90%;" type="text" placeholder="请填写收车人信息" disabled="true" @click="fillAddress(2, 'address_shou')" />
+					<text @click="autoFill(2, 'address_shou')" class="cuIcon-addressbook" style="font-size: 40rpx;"></text>
+				</view>
 			</view>
 		</view>
 		<view class="info-card cu-card shadow-warp">
@@ -37,7 +44,7 @@
 				<text class="cuIcon-right text-gray"></text>
 			</view>
 			<view class="cu-form-group">
-				普通选择
+				付款方式
 				<picker @change="PickerChange" :value="index" :range="payType">
 					<view class="picker">{{ payTypeIndex > -1 ? payType[payTypeIndex] : '现结/到付/月结' }}</view>
 				</picker>
@@ -56,48 +63,51 @@
 				预估
 				<text class="text-yellow text-bold margin-right-xs">￥--</text>
 				<text class="margin-right-xs" style="color: rgba(81,81,81,.3);">|</text>
-				明细
-				<text class="cuIcon-fold text-bold margin-left-xs"></text>
+				<view class="">
+					明细
+					<text class="cuIcon-fold text-bold margin-left-xs"></text>
+				</view>
 			</view>
 			<view class="foot-right margin-right">
-				<button class="cu-btn bg-red shadow-blur round">立即用车</button>
-				<button class="cu-btn bg-orange shadow-blur round margin-top-sm">预约用车</button>
+				<button @click="toOrder" class="cu-btn bg-red shadow-blur round">立即用车</button>
+				<button @click="subscribe" class="cu-btn bg-orange shadow-blur round margin-top-sm">预约用车</button>
 			</view>
-			<!-- <view style="text-align: left;margin-left: 20rpx;">
-				￥
-				<text class="text-yellow">{{ price }}</text>
-			</view>
-			<view>
-				<view style="background-color: #454454;" @click="toOrder(0)">现在用车</view>
-				<view style="background-color: #FA893B;" @click="toOrder(1)">
-					<text class="iconfont icon-yuyue"></text>
-					<text>预约</text>
-				</view>
-			</view> -->
 		</view>
+
+		<!-- 
+		rangeStartTime每天的开始时间
+		rangeEndTime每天的结束时间
+		-->
+		<hTimeAlert
+			title="预约时间"
+			subhead="请选择预约发车时间"
+			intervalTime="10"
+			rangeDay="4"
+			disabled="2"
+			isNow="true"
+			:isShow="showTimeAlert"
+			@closeAlert="closeTimeAlert"
+		></hTimeAlert>
 	</view>
 </template>
 
 <script>
+import hTimeAlert from '@/components/h-time-alert/h-time-alert.vue';
 export default {
+	components: { hTimeAlert },
 	data() {
 		return {
-			additionalType: 0,
-			carType: 0,
+			goTime: '',
+			showTimeAlert: false,
+			address_fa: null,
+			address_shou: null,
 			car: {
 				load: '',
 				size: '',
 				volume: ''
 			},
-			send: '',
-			take: '',
 			isShow: true,
-			location: {
-				startLong: '',
-				startLat: '',
-				endLong: '',
-				endLat: ''
-			},
+			carInfo: null,
 			price: 0,
 			distance: 0,
 			readState: false,
@@ -137,6 +147,16 @@ export default {
 		this.getCar('面包车');
 	},
 	methods: {
+		closeTimeAlert(e) {
+			this.showTimeAlert = false;
+			if (e) {
+				this.goTime = e.date;
+				this.toOrder();
+			}
+		},
+		subscribe() {
+			this.showTimeAlert = true;
+		},
 		readAgreement() {
 			this.readState = !this.readState;
 			if (this.readState) {
@@ -151,21 +171,14 @@ export default {
 		/*
 		 * 获取位置详情
 		 */
-		getLocation(type) {
-			let _this = this;
-			uni.chooseLocation({
-				success: function(res) {
-					if (type === 1) {
-						_this.send = res.address;
-						_this.location.startLong = res.longitude;
-						_this.location.startLat = res.latitude;
-					} else {
-						_this.take = res.address;
-						_this.location.endLong = res.longitude;
-						_this.location.endLat = res.latitude;
-					}
-					_this.isUse();
-				}
+		fillAddress(type, key) {
+			uni.navigateTo({
+				url: `../../user/address/add-address?type=${type}&key=${key}`
+			});
+		},
+		autoFill(type, key) {
+			uni.navigateTo({
+				url: `../../user/address/address?type=${type}&key=${key}`
 			});
 		},
 		/*
@@ -217,46 +230,38 @@ export default {
 			});
 		},
 		/*
-		 * 判断是否调用计算价格
-		 */
-		isUse() {
-			if (this.location.startLong && this.location.startLat && this.location.endLong && this.location.endLat) {
-				this.countPrice(this.location);
-			}
-		},
-		/*
 		 * 去订单页面
 		 */
-		toOrder(e) {
-			if (this.send === '') {
+		toOrder() {
+			if (!this.goTime) {
+				this.goTime = new Date();
+			}
+			/*if (!this.address_fa) {
 				return uni.showToast({
-					title: '请选择发货地',
+					title: '请填写发货信息',
 					icon: 'none'
 				});
 			}
-			if (this.take === '') {
+			if (!this.address_shou) {
 				return uni.showToast({
-					title: '请选择收货地',
+					title: '请填写发货信息',
 					icon: 'none'
 				});
 			}
-			let params = {
-				transportId: this.car.transportId,
-				startPlace: this.send,
-				startLong: this.location.startLong,
-				startLat: this.location.startLat,
-				endPlace: this.take,
-				endLong: this.location.endLong,
-				endLat: this.location.endLat,
-				type: e,
-				price: this.price,
-				distance: this.distance
-			};
-			if (this.carType === 0) {
-				params.additionalType = this.additionalType;
+			if (!readState) {
+				return uni.showToast({
+					title: '请先同意《用车规则》',
+					icon: 'none'
+				});
 			}
+			if (this.address_fa.detail.trim() == this.address_shou.detail.trim()) {
+				return uni.showToast({
+					title: '发货地址不能和收货地址相同',
+					icon: 'none'
+				});
+			}*/
 			uni.navigateTo({
-				url: '/pages/confirmOrder/confirmOrder?params=' + JSON.stringify(params)
+				url: '../order/confirmOrder'
 			});
 		}
 	}
@@ -307,7 +312,7 @@ page {
 			font-size: $font-size-base;
 			color: $text-color;
 
-			> view {
+			> view:nth-of-type(1) {
 				color: white;
 				border-radius: 100upx;
 				width: 50upx;
@@ -317,24 +322,24 @@ page {
 				justify-content: center;
 				font-size: $font-size-sm;
 			}
-
-			> input {
-				margin-left: 20upx;
-				width: 100%;
-			}
 		}
-
 		> view:nth-of-type(1) {
 			padding-bottom: 20upx;
-
-			> view {
-				background: #222836;
-			}
 		}
-
-		> view:nth-of-type(2) {
-			> view {
-				background: #ff6600;
+		.address-fa {
+			border-bottom: 1px solid rgba(81, 81, 81, 0.1);
+			padding-bottom: 20rpx;
+			margin-left: 20upx;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			.address-detail {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				text {
+					display: block;
+				}
 			}
 		}
 	}

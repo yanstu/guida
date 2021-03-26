@@ -9,7 +9,7 @@
 				<view class="flex-sub text-left">{{ address.name }}</view>
 				<view class="flex-sub text-right">{{ address.phone }}</view>
 			</view>
-			<view class="text-gray margin-top margin-bottom">{{ address.address + address.detail }}</view>
+			<view class="text-gray margin-top margin-bottom">{{ address.area + address.detail }}</view>
 			<view class="zaiui-line-view" />
 			<view class="zaiui-right-view">
 				<text class="cuIcon-write text-blue" @tap.stop="editAddressTap">编辑</text>
@@ -34,11 +34,12 @@ export default {
 	data() {
 		return {
 			type: 0,
+			key: '',
 			addresss: [
 				{
 					name: '孙笑川',
 					phone: '1858318325',
-					address: '贵州省贵阳市观山湖区下坝山路6',
+					area: '贵州省贵阳市观山湖区下坝山路6',
 					detail: 'G27大数据创客空间'
 				}
 			]
@@ -47,6 +48,10 @@ export default {
 	onLoad(option) {
 		if (option.type) {
 			this.type = option.type;
+			this.key = option.key;
+			uni.setNavigationBarTitle({
+				title: '选择地址'
+			});
 		}
 	},
 	onReady() {
@@ -61,16 +66,24 @@ export default {
 			let pages = getCurrentPages(); //获取所有页面栈实例列表
 			let nowPage = pages[pages.length - 1]; //当前页页面实例
 			let prevPage = pages[pages.length - 2]; //上一页页面实例
-			/*if (this.type != 1) {
-				prevPage.$vm.addressData.communityName = item.name; //修改上一页item里面参数值
-				prevPage.$vm.addressData.communityId = item.communityId; //修改上一页item里面参数值
-			} else {
-				prevPage.$vm.item = item; //修改上一页item里面参数值
-			}*/
-			console.log(prevPage.$vm);
-			uni.navigateBack({
-				delta: 1
-			});
+			switch (parseInt(this.type)) {
+				case 0:
+					break;
+				case 1:
+					prevPage.$vm.address = item;
+					console.log(prevPage.$vm);
+					uni.navigateBack({
+						delta: 1
+					});
+					break;
+				case 2:
+					prevPage.$vm[this.key] = item;
+					console.log(prevPage.$vm);
+					uni.navigateBack({
+						delta: 1
+					});
+					break;
+			}
 		},
 		editAddressTap() {
 			console.log(1);

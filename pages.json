@@ -61,6 +61,13 @@
 			}
 		},
 		{
+			"path": "pages/customer/order/confirmOrder",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"navigationStyle": "default"
+			}
+		},
+		{
 			"path": "pages/support/index",
 			"style": {
 				"navigationBarTitleText": "客服 - 钢蛋",
@@ -204,7 +211,7 @@
 		{
 			"path": "pages/customer/service/index",
 			"style": {
-				"navigationBarTitleText": "发 填单",
+				"navigationBarTitleText": "发车填单",
 				"navigationStyle": "default"
 			}
 		}

@@ -19,7 +19,8 @@
 		</view>
 		<view class="cu-form-group">
 			所在地区
-			<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.region" placeholder="请选择所在地区" disabled="true" @click="getLocation" /> -->
+			<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.area" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
+			<text class="cuIcon-right text-gray"></text> -->
 			<uni-data-picker
 				placeholder="请选择地址"
 				popup-title="请选择城市"
@@ -29,10 +30,7 @@
 				:step-searh="true"
 				:self-field="code"
 				parent-field="parent_code"
-				@change="onchange"
-				@nodeclick="onnodeclick"
 			></uni-data-picker>
-			<text class="cuIcon-right text-gray"></text>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">详细地址</view>
@@ -62,10 +60,10 @@ export default {
 			address: {
 				name: '',
 				phone: '',
-				region: '',
+				area: '',
 				detail: '',
-				latitude: '',
-				longitude: ''
+				/*latitude: '',
+				longitude: ''*/
 			}
 		};
 	},
@@ -91,7 +89,7 @@ export default {
 		getLocation() {
 			uni.chooseLocation({
 				success: res => {
-					this.address.region = res.address;
+					this.address.area = res.address;
 					this.address.latitude = res.latitude;
 					this.address.longitude = res.longitude;
 				}
@@ -109,5 +107,14 @@ export default {
 /* #endif */
 .wecanui-footer-fixed .flex-direction {
 	padding: 18.18rpx;
+}
+.input-value-border {
+	border: none !important;
+}
+.input-arrow {
+	margin-left: 10px !important;
+	top: -2px !important;
+	border-left: 2px solid #999 !important;
+	border-bottom: 2px solid #999 !important;
 }
 </style>

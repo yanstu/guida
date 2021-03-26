@@ -13,7 +13,7 @@
 			</view>
 			<view class="cu-form-group">
 				车架号
-				<input class="text-right" placeholder="请输入车架号后6位" name="input" />
+				<input class="text-right" maxlength="6" placeholder="请输入车架号后6位" name="input" />
 				<text class="cuIcon-right text-gray"></text>
 			</view>
 			<view class="cu-form-group">

@@ -19,8 +19,19 @@
 		</view>
 		<view class="cu-form-group">
 			所在地区
-			<input style="width: 77%;" class="text-right" type="text" v-model="address.region" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
-			<text class="cuIcon-right text-gray"></text>
+			<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.area" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
+			<text class="cuIcon-right text-gray"></text> -->
+			<uni-data-picker
+				placeholder="请选择地址"
+				popup-title="请选择城市"
+				collection="opendb-city-china"
+				field="code as value, name as text"
+				orderby="value asc"
+				:step-searh="true"
+				:self-field="code"
+				@change="changeArea"
+				parent-field="parent_code"
+			></uni-data-picker>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">详细地址</view>
@@ -33,28 +44,30 @@
 </template>
 
 <script>
-import barTitle from '@/components/zaiui-common/basics/bar-title';
+import uniDataPicker from '@/components/uni-data-picker/components/uni-data-picker/uni-data-picker.vue';
 import _tool from '@/utils/other.js';
 export default {
 	components: {
-		barTitle
+		uniDataPicker
 	},
 	data() {
 		return {
 			address: {
 				name: '',
 				phone: '',
-				region: '',
-				detail: '',
-				latitude: '',
-				longitude: ''
+				area: '',
+				detail: ''
+				/*latitude: '',
+				longitude: ''*/
 			},
-			pageType: 0
+			type: 0,
+			key: ''
 		};
 	},
 	onLoad(option) {
-		if (option.pageType) {
-			this.pageType = option.pageType;
+		if (option.type) {
+			this.type = option.type;
+			this.key = option.key;
 			uni.setNavigationBarTitle({
 				title: '选择地址'
 			});
@@ -75,19 +88,44 @@ export default {
 					title: '手机号格式错误',
 					icon: 'none'
 				});
+				return;
 			}
-			console.log(this.address);
+			let pages = getCurrentPages(); //获取所有页面栈实例列表
+			let nowPage = pages[pages.length - 1]; //当前页页面实例
+			let prevPage = pages[pages.length - 2]; //上一页页面实例
+			switch (parseInt(this.type)) {
+				case 0:
+					break;
+				case 1:
+					prevPage.$vm.address = this.address;
+					console.log(prevPage.$vm);
+					uni.navigateBack({
+						delta: 1
+					});
+					break;
+				case 2:
+					prevPage.$vm[this.key] = this.address;
+					console.log(prevPage.$vm);
+					uni.navigateBack({
+						delta: 1
+					});
+					break;
+			}
 		},
-		getLocation() {
+		changeArea(e) {
+			let areaArr = e.detail.value;
+			this.address.area = areaArr[0].text + areaArr[1].text + areaArr[2].text;
+		}
+		/*getLocation() {
 			console.log(1);
 			uni.chooseLocation({
 				success: res => {
-					this.address.region = res.address;
+					this.address.area = res.address;
 					this.address.latitude = res.latitude;
 					this.address.longitude = res.longitude;
 				}
 			});
-		}
+		}*/
 	}
 };
 </script>
@@ -100,5 +138,14 @@ export default {
 /* #endif */
 .wecanui-footer-fixed .flex-direction {
 	padding: 18.18rpx;
+}
+.input-value-border {
+	border: none !important;
+}
+.input-arrow {
+	margin-left: 10px !important;
+	top: -2px !important;
+	border-left: 2px solid #999 !important;
+	border-bottom: 2px solid #999 !important;
 }
 </style>
