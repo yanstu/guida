@@ -254,9 +254,9 @@ export default {
 				});*/
 				console.log(x);
 				if (x.indexOf('登录') != -1) {
-					this.msgList.push({ my: false, msg: '找到了', type: -1 });
+					this.msgList.push({ my: false, msg: '这个我知道，但是我不告诉你', type: -1 });
 				} else {
-					this.msgList.push({ my: false, msg: '没找到', type: -1 });
+					this.msgList.push({ my: false, msg: '我不知道啊', type: -1 });
 				}
 				/*this.msgList.push({
 					my: false,

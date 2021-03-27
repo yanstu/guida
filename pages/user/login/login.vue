@@ -26,7 +26,7 @@
 		</view>
 
 		<!--底部说明-->
-		<view class="text-sm text-gray zaiui-foot-ad-view">贵达物流 - 更专业的xxxxxxx</view>
+		<view class="text-sm text-gray zaiui-foot-ad-view">贵达物流从“心”出发，值得托付。</view>
 	</view>
 </template>
 

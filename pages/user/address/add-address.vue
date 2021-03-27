@@ -6,39 +6,47 @@
 			<block slot="right"><text class="text-orange">保存</text></block>
 		</bar-title> -->
 
-		<!--表单-->
-		<view class="cu-form-group margin-top">
-			发/收货人
-			<input style="width: 77%;" class="text-right" placeholder="您的姓名" v-model="address.name" />
-			<text class="cuIcon-right text-gray"></text>
-		</view>
-		<view class="cu-form-group">
-			手机号码
-			<input style="width: 77%;" class="text-right" placeholder="卖家和快递员联系您的方式" v-model="address.phone" />
-			<text class="cuIcon-right text-gray"></text>
-		</view>
-		<view class="cu-form-group">
-			所在地区
-			<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.area" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
+		<view class="info-card cu-card shadow-warp">
+			<!--表单-->
+			<view class="cu-form-group margin-top">
+				发/收货人
+				<input style="width: 77%;" class="text-right" placeholder="您的姓名" v-model="address.name" />
+				<text class="cuIcon-right text-gray"></text>
+			</view>
+			<view class="cu-form-group">
+				手机号码
+				<input style="width: 77%;" class="text-right" placeholder="卖家和快递员联系您的方式" v-model="address.phone" />
+				<text class="cuIcon-right text-gray"></text>
+			</view>
+			<view class="cu-form-group">
+				所在地区
+				<!-- <input style="width: 77%;" class="text-right" type="text" v-model="address.area" placeholder="请选择所在地区" disabled="true" @click="getLocation" />
 			<text class="cuIcon-right text-gray"></text> -->
-			<uni-data-picker
-				placeholder="请选择地址"
-				popup-title="请选择城市"
-				collection="opendb-city-china"
-				field="code as value, name as text"
-				orderby="value asc"
-				:step-searh="true"
-				:self-field="code"
-				@change="changeArea"
-				parent-field="parent_code"
-			></uni-data-picker>
+				<uni-data-picker
+					placeholder="请选择地址"
+					popup-title="请选择城市"
+					collection="opendb-city-china"
+					field="code as value, name as text"
+					orderby="value asc"
+					:step-searh="true"
+					:self-field="code"
+					@change="changeArea"
+					parent-field="parent_code"
+				></uni-data-picker>
+			</view>
+			<view class="cu-form-group align-start">
+				<view class="title">详细地址</view>
+				<textarea maxlength="-1" v-model="address.detail" placeholder="请输入详细地址"></textarea>
+			</view>
+			<view style="position: absolute;bottom: 0;height: 160rpx;width: 100%;border-radius: 20rpx 20rpx 0 0;" class="flex flex-direction bg-white align-center">
+				<button style="width: 93%;" class="cu-btn bg-blue lg margin-top-sm" @click="submit">确认</button>
+			</view>
 		</view>
-		<view class="cu-form-group align-start">
-			<view class="title">详细地址</view>
-			<textarea maxlength="-1" v-model="address.detail" placeholder="请输入详细地址"></textarea>
-		</view>
-		<view style="position: absolute;bottom: 0;height: 160rpx;width: 100%;border-radius: 20rpx 20rpx 0 0;" class="flex flex-direction bg-white align-center">
-			<button style="width: 93%;" class="cu-btn bg-blue lg margin-top-sm" @click="submit">确认</button>
+		<view class="info-card cu-card shadow-warp">
+			<view class="cu-form-group align-start">
+				<view class="title">粘贴识别</view>
+				<textarea maxlength="-1" :disabled="modalName != null" @input="textareaBInput" placeholder="智能识别"></textarea>
+			</view>
 		</view>
 	</view>
 </template>
@@ -81,6 +89,7 @@ export default {
 		});
 	},
 	methods: {
+		parseAddress() {},
 		submit() {
 			var phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
 			if (!phoneReg.test(this.address.phone)) {
@@ -147,5 +156,11 @@ export default {
 	top: -2px !important;
 	border-left: 2px solid #999 !important;
 	border-bottom: 2px solid #999 !important;
+}
+.info-card {
+	width: 93%;
+	margin: 0 auto;
+	margin-top: 25rpx;
+	border-radius: 25rpx;
 }
 </style>
