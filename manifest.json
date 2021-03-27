@@ -1,5 +1,5 @@
 {
-	"name": "zsy",
+	"name": "贵达物流",
 	"appid": "__UNI__46462A7",
 	"description": "",
 	"versionName": "1.0.0",
@@ -83,7 +83,8 @@
 		},
 		"uniStatistics": {
 			"enable": true
-		}
+		},
+		"cloudfunctionRoot": "cloudfunctions/"
 	},
 	"mp-baidu": {
 		"usingComponents": true,

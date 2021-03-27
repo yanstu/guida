@@ -12,14 +12,14 @@
 			<view class="text-gray margin-top margin-bottom">{{ address.area + address.detail }}</view>
 			<view class="zaiui-line-view" />
 			<view class="zaiui-right-view">
-				<text class="cuIcon-write text-blue" @tap.stop="editAddressTap">编辑</text>
-				<text class="cuIcon-delete text-red">删除</text>
+				<text class="cuIcon-write text-blue" @tap.stop="toAddress(1, address)">编辑</text>
+				<text class="cuIcon-delete" @tap.stop="delAdress(address)" style="color: red;">删除</text>
 			</view>
 		</view>
 
 		<!--按钮-->
 		<view class="wecanui-footer-fixed foot-pb">
-			<view class="flex flex-direction"><button class="cu-btn bg-blue shadow-blur round" @tap="AddAddressTap">添加新地址</button></view>
+			<view class="flex flex-direction"><button class="cu-btn bg-blue shadow-blur round" @tap="toAddress(0)">添加新地址</button></view>
 		</view>
 	</view>
 </template>
@@ -39,8 +39,8 @@ export default {
 				{
 					name: '孙笑川',
 					phone: '1858318325',
-					area: '贵州省贵阳市观山湖区下坝山路6',
-					detail: 'G27大数据创客空间'
+					area: '贵州省贵阳市观山湖区',
+					detail: '下坝山路6 G27大数据创客空间'
 				}
 			]
 		};
@@ -62,6 +62,18 @@ export default {
 		});
 	},
 	methods: {
+		delAdress(address) {
+			uni.showModal({
+				title: '提示',
+				content: '确定要删除“ ' + address.area + ' ' + address.detail + ' ”这个地址吗？',
+				success: res => {
+					uni.showToast({
+						title: '删除成功',
+						icon: 'success'
+					});
+				}
+			});
+		},
 		sendMsg(item) {
 			let pages = getCurrentPages(); //获取所有页面栈实例列表
 			let nowPage = pages[pages.length - 1]; //当前页页面实例
@@ -85,15 +97,12 @@ export default {
 					break;
 			}
 		},
-		editAddressTap() {
-			console.log(1);
+		toAddress(pageType, address) {
+			if (address) {
+				uni.setStorageSync('addressInfo', address);
+			}
 			uni.navigateTo({
-				url: 'edit-address'
-			});
-		},
-		AddAddressTap() {
-			uni.navigateTo({
-				url: 'add-address'
+				url: 'edit-address?pageType=' + pageType
 			});
 		}
 	}

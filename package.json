@@ -1,0 +1,23 @@
+{
+  "name": "guida",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "address-parse": "^1.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanstu/guida.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanstu/guida/issues"
+  },
+  "homepage": "https://github.com/yanstu/guida#readme"
+}

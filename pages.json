@@ -134,13 +134,6 @@
 		{
 			"path": "pages/user/address/edit-address",
 			"style": {
-				"navigationBarTitleText": "编辑地址",
-				"navigationStyle": "default"
-			}
-		},
-		{
-			"path": "pages/user/address/add-address",
-			"style": {
 				"navigationBarTitleText": "添加地址",
 				"navigationStyle": "default"
 			}

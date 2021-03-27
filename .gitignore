@@ -3,3 +3,4 @@ node_modules/
 dist/
 unpackage/
 uni_modules/
+package-lock.json
