@@ -159,7 +159,14 @@ export default {
 		};
 	},
 	onShow() {
-		this.setTabBarIndex(1);
+		switch (parseInt(uni.getStorageSync('role'))) {
+			case 2:
+				this.setTabBarIndex(2);
+				break;
+			default:
+				this.setTabBarIndex(1);
+				break;
+		}
 	},
 	methods: {
 		// 切换输入法时移动输入框(按照官方的上推页面的原理应该会自动适应不同的键盘高度-->官方bug)

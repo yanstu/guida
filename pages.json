@@ -15,6 +15,21 @@
 			"iconPath": "static/image/tabber/kefu.png",
 			"selectedIconPath": "static/image/tabber/kefu1.png"
 		}, {
+			"pagePath": "pages/driver/driver",
+			"text": "司机",
+			"iconPath": "static/image/tabber/kefu.png",
+			"selectedIconPath": "static/image/tabber/kefu1.png"
+		}, {
+			"pagePath": "pages/business/bill",
+			"text": "司机",
+			"iconPath": "static/image/tabber/kefu.png",
+			"selectedIconPath": "static/image/tabber/kefu1.png"
+		}, {
+			"pagePath": "pages/business/power",
+			"text": "司机",
+			"iconPath": "static/image/tabber/kefu.png",
+			"selectedIconPath": "static/image/tabber/kefu1.png"
+		}, {
 			"pagePath": "pages/user/user",
 			"text": "我的",
 			"iconPath": "static/image/tabber/my.png",
@@ -23,6 +38,36 @@
 	},
 	"pages": [{
 			"path": "pages/customer/customer",
+			"style": {
+				//"navigationStyle": "custom",
+				"backgroundColor": "#FFFFFF",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		}, {
+			"path": "pages/inspect/inspect",
+			"style": {
+				//"navigationStyle": "custom",
+				"backgroundColor": "#FFFFFF",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		}, {
+			"path": "pages/business/bill",
+			"style": {
+				//"navigationStyle": "custom",
+				"backgroundColor": "#FFFFFF",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		}, {
+			"path": "pages/business/power",
 			"style": {
 				//"navigationStyle": "custom",
 				"backgroundColor": "#FFFFFF",

@@ -146,7 +146,14 @@ export default {
 		};
 	},
 	onShow() {
-		this.setTabBarIndex(2);
+		switch (parseInt(uni.getStorageSync('role'))) {
+			case 2:
+				this.setTabBarIndex(3);
+				break;
+			default:
+				this.setTabBarIndex(2);
+				break;
+		}
 		this.userInfo = uni.getStorageSync('userInfo');
 		this.role = uni.getStorageSync('role');
 	},

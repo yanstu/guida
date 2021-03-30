@@ -57,7 +57,7 @@ Component({
 				break;
 			case 1:
 				temp = [{
-					"pagePath": "/pages/customer/customer",
+					"pagePath": "/pages/driver/driver",
 					"text": "司机",
 					"iconPath": "/static/image/tabber/home.png",
 					"selectedIconPath": "/static/image/tabber/home1.png"
@@ -65,16 +65,21 @@ Component({
 				break;
 			case 2:
 				temp = [{
-					"pagePath": "/pages/customer/customer",
-					"text": "商家",
+					"pagePath": "/pages/business/bill",
+					"text": "账单检验",
+					"iconPath": "/static/image/tabber/home.png",
+					"selectedIconPath": "/static/image/tabber/home1.png"
+				}, {
+					"pagePath": "/pages/business/power",
+					"text": "权限管理",
 					"iconPath": "/static/image/tabber/home.png",
 					"selectedIconPath": "/static/image/tabber/home1.png"
 				}];
 				break;
 			case 3:
 				temp = [{
-					"pagePath": "/pages/customer/customer",
-					"text": "验车员",
+					"pagePath": "/pages/inspect/inspect",
+					"text": "通知",
 					"iconPath": "/static/image/tabber/home.png",
 					"selectedIconPath": "/static/image/tabber/home1.png"
 				}];
@@ -112,12 +117,13 @@ Component({
 	},
 	methods: {
 		switchTab(e) {
+			console.log(this.data.list);
 			const {
 				index,
 				path
 			} = e.currentTarget.dataset
 			if (index === this.properties.selected) return
-			wx.switchTab({
+			wx.reLaunch({
 				url: path
 			})
 			this.showItem(index, path)
